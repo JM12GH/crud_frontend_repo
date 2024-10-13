@@ -7,35 +7,33 @@
           Back
         </button>
       </div>
-      <div class="p-4" v-if="author">
+      <div class="p-4" v-if="store.author">
         <h6 class="text-lg font-semibold text-blue-700">First Name: <span class="text-black">{{
-            author.first_name
+            store.author.first_name
           }}</span></h6>
         <h6 class="text-lg font-semibold text-blue-700">Last Name: <span class="text-black">{{
-            author.last_name
+            store.author.last_name
           }}</span></h6>
         <h6 class="text-lg font-semibold text-blue-700">Description: <span
-            class="text-black">{{ author.description }}</span></h6>
+            class="text-black">{{ store.author.description }}</span></h6>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted} from 'vue';
+import {onMounted} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import {useAuthorStore} from '@/stores/authorStore';
 
 const route = useRoute();
 const router = useRouter();
 const store = useAuthorStore();
-const authorId = computed(() => Number(route.params.id));
-const author = computed(() => store.authors.find(author => author.id === authorId.value));
+const authorId =  Number(route.params.id);
 
-onMounted(() => {
-  store.fetchById(authorId.value).catch((error) => {
-    console.error('Error fetching author:', error);
-  });
+
+onMounted(async() => {
+  store.fetchById(Number(authorId));
 });
 
 const goToIndexPage = () => {

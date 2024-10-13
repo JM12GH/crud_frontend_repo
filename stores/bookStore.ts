@@ -89,7 +89,7 @@ export const useBookStore = defineStore('bookStore', () => {
             });
 
             if (currentId.value) {
-                formData.append('_method', 'PUT');  // Add this line to handle PUT requests with POST
+                formData.append('_method', 'PUT');
                 await $axios.post(`/books/${currentId.value}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',

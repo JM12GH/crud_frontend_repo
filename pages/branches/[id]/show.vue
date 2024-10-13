@@ -9,29 +9,27 @@
           Back
         </button>
       </div>
-      <div class="p-4" v-if="branch">
-        <h6 class="text-lg font-semibold text-blue-700">The branch with id {{ branch.id }} name is: <span
-            class="text-black">{{ branch.name }}</span></h6>
+      <div class="p-4" v-if="store.branch">
+        <h6 class="text-lg font-semibold text-blue-700">The branch with id {{ store.branch.id }} name is: <span
+            class="text-black">{{ store.branch.name }}</span></h6>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted} from 'vue';
+import {onMounted} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import {useBranchStore} from '@/stores/branchStore';
 
 const route = useRoute();
 const router = useRouter();
 const store = useBranchStore();
-const branchId = computed(() => Number(route.params.id));
-const branch = computed(() => store.branches.find(branch => branch.id === branchId.value));
+const branchId = Number(route.params.id);
 
-onMounted(() => {
-  store.fetchById(branchId.value).catch((error) => {
-    console.error('Error fetching branch:', error);
-  });
+
+onMounted(async () => {
+  await store.fetchById(Number(branchId))
 });
 
 const goToIndexPage = () => {

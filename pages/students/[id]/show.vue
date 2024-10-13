@@ -23,7 +23,7 @@
         <h6 class="text-lg font-semibold text-blue-700">Branch: <span
             class="text-black">{{ student.branch?.name || 'N/A' }}</span></h6>
         <h6 class="text-lg font-semibold text-blue-700">Books:</h6>
-        <ul class="text-black">
+        <ul class="text-black text-lg font-semibold">
           <li v-for="book in student.books" :key="book.title">{{ book.title }}</li>
         </ul>
 

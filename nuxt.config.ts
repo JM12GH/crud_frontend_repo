@@ -1,4 +1,3 @@
-// nuxt.config.ts
 import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
@@ -9,18 +8,24 @@ export default defineNuxtConfig({
   ],
 
   modules: [
-    '@nuxtjs/tailwindcss', 
+    '@nuxtjs/tailwindcss',
     '@nuxt/icon',
     '@pinia/nuxt'
   ],
 
   runtimeConfig: {
     public: {
-     
+
+      axios: {
+        headers: {
+          common: {
+            Accept: 'application/json',
+          },
+        },
+      },
     },
   },
   plugins: [
     '~/plugins/axios.ts',
-    
   ],
 });

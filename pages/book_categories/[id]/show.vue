@@ -9,8 +9,10 @@
           Back
         </button>
       </div>
-      <div class="p-4" v-if="bookcategory">
-        <h6 class="text-lg font-semibold text-blue-700">Name: <span class="text-black">{{ bookcategory.name }}</span>
+      <div class="p-4" v-if="store.bookcategory">
+        <h6 class="text-lg font-semibold text-blue-700">Name: <span class="text-black">{{
+            store.bookcategory.name
+          }}</span>
         </h6>
 
       </div>
@@ -19,20 +21,18 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted} from 'vue';
+import {onMounted} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import {useBookCategoryStore} from '~/stores/bookCategoryStore';
 
 const route = useRoute();
 const router = useRouter();
 const store = useBookCategoryStore();
-const bookcategoryId = computed(() => Number(route.params.id));
-const bookcategory = computed(() => store.bookcategories.find(bookcategory => bookcategory.id === bookcategoryId.value));
+const bookcategoryId = route.params.id;
 
-onMounted(() => {
-  store.fetchById(bookcategoryId.value).catch((error) => {
-    console.error('Error fetching book category:', error);
-  });
+
+onMounted(async () => {
+  await store.fetchById(Number(bookcategoryId))
 });
 
 const goToIndexPage = () => {

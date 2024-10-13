@@ -2,7 +2,7 @@
   <div class="container mx-auto p-4">
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
       <div class="flex items-center justify-between p-4 border-b bg-gray-100">
-        <h2 class="text-lg font-semibold text-blue-700">Student Page</h2>
+        <h2 class="text-lg font-semibold text-blue-700">Book Page</h2>
         <button
             @click="goToIndexPage"
             class="bg-gray-500 text-white px-4 py-2 rounded-lg">

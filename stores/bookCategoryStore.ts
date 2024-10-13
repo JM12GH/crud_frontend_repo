@@ -97,8 +97,8 @@ export const useBookCategoryStore = defineStore('bookcategory', () => {
             let allCategories: BookCategory[];
             const firstPageData = await fetchAllPages(1);
             allCategories = [...firstPageData.data];
-
             const totalPages = firstPageData.meta.last_page ?? 1;
+
 
             for (let currentPage = 2; currentPage <= totalPages; currentPage++) {
                 const pageData = await fetchAllPages(currentPage);

@@ -9,32 +9,29 @@
           Back
         </button>
       </div>
-      <div class="p-4" v-if="studentcategory">
-        <h6 class="text-lg font-semibold text-blue-700">Name: <span class="text-black">{{ studentcategory.name }}</span>
-        </h6>
-        <h6 class="text-lg font-semibold text-blue-700">Max_Allow: <span class="text-black">{{
-            studentcategory.max_allow
+      <div class="p-4" v-if="store.studentcategory">
+        <h6 class="text-lg font-semibold text-blue-700">Name: <span class="text-black">{{
+            store.studentcategory.name
           }}</span></h6>
+        <h6 class="text-lg font-semibold text-blue-700">Max Allow: <span
+            class="text-black">{{ store.studentcategory.max_allow }}</span></h6>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted} from 'vue';
+import {onMounted} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import {useStCategoryStore} from '~/stores/studentCategoryStore';
 
 const route = useRoute();
 const router = useRouter();
 const store = useStCategoryStore();
-const studentcategoryId = computed(() => Number(route.params.id));
-const studentcategory = computed(() => store.studentcategories.find(studentcategory => studentcategory.id === studentcategoryId.value));
+const studentcategoryId = route.params.id;
 
-onMounted(() => {
-  store.fetchById(studentcategoryId.value).catch((error) => {
-    console.error('Error fetching student category:', error);
-  });
+onMounted(async () => {
+  await store.fetchById(Number(studentcategoryId));
 });
 
 const goToIndexPage = () => {
